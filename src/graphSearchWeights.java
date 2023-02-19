@@ -1,8 +1,8 @@
 import java.util.ArrayList;
 import java.util.Collections;
 
-// This does a graphSearch, then it backs up from the destination, calculating the lowest cost route from each parent to the nodeBeingChecked. Cost is measured by time in minutes
-// However I want it to choose the lowest cost path from the beginning, without backing up. In that case you'll need to add in distance from destination.
+// This does a graphSearch, then it backs up from the goal, calculating the lowest cost route from each parent to the nodeBeingChecked. Cost is measured by time in minutes
+// However I want it to choose the lowest cost path from the beginning, without backing up. In that case you'll need to add in distance from goal.
 // But, although it picks the lowest cost path to each node from each possible parent, it doesn't actually choose the optimal solution.
 
 // 1.
@@ -25,25 +25,25 @@ public class graphSearchWeights {
 	static Node nodeBeingChecked;
 	static Node currentState;
 	static String setName;
-	static Problem problem = new Problem(currentState, false, 0);
+	static Problem problem = new Problem(currentState, 0, Problem.goal);
 	static Node bestParent;
 	static int weight;
 	static Object objectToDisplay = new Object();
 
-	public static void reachDestination(Problem problem) {
+	public static void reachgoal(Problem problem) {
 		frontier.add(problem.initialState);
 		while (frontier.size() > 0) {
 			nodeBeingChecked = frontier.remove(0);
-			if (!problem.isGoal(nodeBeingChecked, problem.destination)) {
+			if (!problem.isGoal(nodeBeingChecked, Problem.goal)) {
 				explored.add(nodeBeingChecked);
 				expandToFrontier(nodeBeingChecked, (nodeBeingChecked.children.size()));
-			} else { // else the nodeBeingChecked is the destination
+			} else { // else the nodeBeingChecked is the goal
 				System.out.println("Goal found!");
 				solution.add(nodeBeingChecked);
 				calculateSolution(nodeBeingChecked, explored);
 			}
 		} // while frontier > 0
-	} // reachDestination
+	} // reachgoal
 
 	public static ArrayList<Node> calculateSolution(Node nodeBeingChecked, ArrayList<Node> explored) {
 
@@ -199,7 +199,7 @@ public class graphSearchWeights {
 	}
 
 	public static void main(String[] args) {
-		reachDestination(problem);
+		reachgoal(problem);
 	}
 
 }

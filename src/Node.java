@@ -28,19 +28,9 @@ public class Node{
 		return edge.weight;
 	}
 	
-
-	
-	
 	public static ArrayList<Edge> getEdges(Node node){		
 		return node.edges;
 	}
-
-
-	
-	
-
-
-	
 
     }
 

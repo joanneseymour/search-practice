@@ -8,33 +8,30 @@ public class graphSearch {
 	static ArrayList<Node> frontier = new ArrayList<Node>();
 	static ArrayList<Node> explored = new ArrayList<Node>();
 	static ArrayList<Node> solution = new ArrayList<Node>();
-	static ArrayList<Edge> bestEdges = new ArrayList<Edge>();
-	static ArrayList<Edge> theseEdges = new ArrayList<Edge>();
 	static BusRoutes busRoutes = new BusRoutes();
 	static Node nodeBeingChecked;
 	static Node currentState;
 	static String setName;
-	static Problem problem = new Problem(currentState, false, 0);
-	static int weight;
+	static Problem problem = new Problem(currentState, 0, Problem.goal);
 
-	public static void reachDestination(Problem problem) {
+	public static void reachgoal(Problem problem) {
 		frontier.add(problem.initialState);
 		while (frontier.size() > 0) {
 			nodeBeingChecked = frontier.remove(0);
 			System.out.println("Currently checking node " + nodeBeingChecked.place);
-			if (!problem.isGoal(nodeBeingChecked, problem.destination)) {
+			if (!problem.isGoal(nodeBeingChecked, Problem.goal)) {
 				System.out.println("...Not goal. Adding " + nodeBeingChecked.place + " to explored set");
 				explored.add(nodeBeingChecked);
 				expandToFrontier(nodeBeingChecked, (nodeBeingChecked.children.size()));
-			} else { // else the nodeBeingChecked is the destination
+			} else { // else the nodeBeingChecked is the goal
 				System.out.println("Goal found!");
 				calculateSolution(nodeBeingChecked, explored);
 			}
 		} // while frontier > 0
-	} // reachDestination
+	} // reachgoal
 
 	public static ArrayList<Node> calculateSolution(Node nodeBeingChecked, ArrayList<Node> explored) {
-		solution.add(problem.destination);
+		solution.add(Problem.goal);
 		if (nodeBeingChecked != problem.initialState) {
 			for (int j = 0; j < explored.size(); j++) {
 				// for all parents of nodeBeingChecked:
@@ -96,7 +93,7 @@ public class graphSearch {
 	}
 
 	public static void main(String[] args) {
-		reachDestination(problem);
+		reachgoal(problem);
 	}
 
 }
