@@ -7,6 +7,7 @@ public class bfs {
     static ArrayList<Node> frontier = new ArrayList<Node>();
     static Node nodeBeingChecked;
     static ArrayList<Node> explored = new ArrayList<Node>();
+    static Node child;
 
 
     public static void main(String[] args) {
@@ -17,10 +18,14 @@ public class bfs {
             System.out.println("Goal not reached yet");
         }
         if (frontier.size()>0) {
-            // remove first or last from frontier?
-            nodeBeingChecked = frontier.remove(frontier.size());
+            nodeBeingChecked = frontier.remove(0);
             explored.add(nodeBeingChecked);
             // for each action in problem.ACTIONS(node.STATE) do
+            // actions = the set of actions applicable from state s
+            for (int i = 0; i < nodeBeingChecked.children.size(); i++){
+                child = nodeBeingChecked.children.get(i);
+                // if child.STATE is not in explored or frontier then
+            }
 
         } else {
             System.out.println("Fail");
