@@ -25,6 +25,12 @@ public class bfs {
             for (int i = 0; i < nodeBeingChecked.children.size(); i++){
                 child = nodeBeingChecked.children.get(i);
                 // if child.STATE is not in explored or frontier then
+                if ((!explored.contains(child))&&(!frontier.contains(child))){
+                    if (problem.isGoal(child, goal)){
+                        // to do: make calculateSolution global
+                        calculateSolution();
+                    }
+                }
             }
 
         } else {
