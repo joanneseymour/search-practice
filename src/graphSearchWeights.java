@@ -118,27 +118,27 @@ public class graphSearchWeights {
 		System.out.println("");
 	}
 
-	public static void displayNodeList(ArrayList<Node> set) {
-		if (set == frontier) {
-			setName = "Frontier";
-		} else if (set == explored) {
-			setName = "Explored";
-		} else if (set == solution) {
-			setName = "Solution";
-		} else if (set == parentsToCheck) {
-			setName = "ParentsToCheck";
-		}
-		System.out.print(setName + ": ");
-		if (set.size() > 0) {
-			for (int i = 0; i < set.size(); i++) {
-				System.out.print(i + ". " + set.get(i).place + " ");
-			}
-		} else {
-			System.out.print("empty");
-		}
-		System.out.println("");
-		setName = "";
-	}
+	// public static void displayNodeList(ArrayList<Node> set) {
+	// 	if (set == frontier) {
+	// 		setName = "Frontier";
+	// 	} else if (set == explored) {
+	// 		setName = "Explored";
+	// 	} else if (set == solution) {
+	// 		setName = "Solution";
+	// 	} else if (set == parentsToCheck) {
+	// 		setName = "ParentsToCheck";
+	// 	}
+	// 	System.out.print(setName + ": ");
+	// 	if (set.size() > 0) {
+	// 		for (int i = 0; i < set.size(); i++) {
+	// 			System.out.print(i + ". " + set.get(i).place + " ");
+	// 		}
+	// 	} else {
+	// 		System.out.print("empty");
+	// 	}
+	// 	System.out.println("");
+	// 	setName = "";
+	// }
 
 	public static String getEdgeListName(ArrayList<Edge> edgeList) {
 		String listName = "";
