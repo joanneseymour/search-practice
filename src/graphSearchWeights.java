@@ -31,7 +31,7 @@ public class graphSearchWeights {
 	static Object objectToDisplay = new Object();
 
 	public static void reachgoal(Problem problem) {
-		frontier.add(problem.initialState);
+		frontier.add(Problem.initialState);
 		while (frontier.size() > 0) {
 			nodeBeingChecked = frontier.remove(0);
 			if (!problem.isGoal(nodeBeingChecked, Problem.goal)) {
@@ -40,28 +40,10 @@ public class graphSearchWeights {
 			} else { // else the nodeBeingChecked is the goal
 				System.out.println("Goal found!");
 				solution.add(nodeBeingChecked);
-				calculateSolution(nodeBeingChecked, explored);
+				Problem.calculateSolution(nodeBeingChecked, explored);
 			}
 		} // while frontier > 0
 	} // reachgoal
-
-	public static ArrayList<Node> calculateSolution(Node nodeBeingChecked, ArrayList<Node> explored) {
-
-		if (nodeBeingChecked != problem.initialState) {
-			// for all parents of nodeBeingChecked:
-			for (int i = 0; i < nodeBeingChecked.parents.size(); i++) {
-				// if the explored set contains one of the parents,
-				if (explored.contains(nodeBeingChecked.parents.get(i))) {
-					System.out.println(nodeBeingChecked.place + "'s parent, " + nodeBeingChecked.parents.get(i).place
-							+ ", is in the explored set. Adding to parentsToCheck.");
-
-					// add it to the solution list at the beginning.
-					getBestParent(nodeBeingChecked.parents);
-				} // if parent is in explored set
-			} // for all parents of nodeBeingChecked
-		} // if nodeBeingChecked is not home
-		return solution;
-	}
 
 	public static void getBestParent(ArrayList<Node> parentsToCheck) {
 		Node thisParent = null;
@@ -119,7 +101,7 @@ public class graphSearchWeights {
 		solution.add(0, bestParent);
 		displayNodeList(solution);
 		nodeBeingChecked = bestParent;
-		calculateSolution(nodeBeingChecked, explored);
+		Problem.calculateSolution(nodeBeingChecked, explored);
 	} // getBestParent
 
 	public static void displayEdgeList(ArrayList<Edge> set) {

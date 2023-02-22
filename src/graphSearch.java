@@ -15,7 +15,7 @@ public class graphSearch {
 	static Problem problem = new Problem(currentState, 0, Problem.goal);
 
 	public static void reachgoal(Problem problem) {
-		frontier.add(problem.initialState);
+		frontier.add(Problem.initialState);
 		while (frontier.size() > 0) {
 			nodeBeingChecked = frontier.remove(0);
 			System.out.println("Currently checking node " + nodeBeingChecked.place);
@@ -25,38 +25,10 @@ public class graphSearch {
 				expandToFrontier(nodeBeingChecked, (nodeBeingChecked.children.size()));
 			} else { // else the nodeBeingChecked is the goal
 				System.out.println("Goal found!");
-				calculateSolution(nodeBeingChecked, explored);
+				Problem.calculateSolution(nodeBeingChecked, explored);
 			}
 		} // while frontier > 0
 	} // reachgoal
-
-	public static ArrayList<Node> calculateSolution(Node nodeBeingChecked, ArrayList<Node> explored) {
-		solution.add(Problem.goal);
-		if (nodeBeingChecked != problem.initialState) {
-			for (int j = 0; j < explored.size(); j++) {
-				// for all parents of nodeBeingChecked:
-				for (int i = 0; i < nodeBeingChecked.parents.size(); i++) {
-					// if the explored set contains one of the parents,
-					if (explored.contains(nodeBeingChecked.parents.get(i))) {
-						System.out
-								.println(nodeBeingChecked.place + "'s parent, " + nodeBeingChecked.parents.get(i).place
-										+ ", is in the explored set. Adding to solution");
-						solution.add(0, nodeBeingChecked.parents.get(i));
-						nodeBeingChecked = solution.get(0);
-						break;
-						// add it to the solution list at the beginning.
-					} // if parent is in explored set
-				} // for all parents of nodeBeingChecked
-			}
-
-		} // if nodeBeingChecked is not home
-		System.out.print("Solution is ");
-		for (int i = 0; i < solution.size(); i++) {
-			System.out.print(i + ". " + solution.get(i).place + " ");
-		}
-		System.out.println("");
-		return solution;
-	}
 
 	public static void displayNodeList(ArrayList<Node> set) {
 		if (set == frontier) {

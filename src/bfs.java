@@ -2,8 +2,8 @@ import java.util.ArrayList;
 
 public class bfs {
     static Node goal = Problem.goal;
-    static Problem problem = new Problem(BusRoutes.home, 0, goal);
-    static Node initialState = new Node(BusRoutes.home.place);
+    static Problem problem = new Problem(Problem.initialState, 0, Problem.goal);
+    // static Node initialState = new Node(BusRoutes.home.place);
     static ArrayList<Node> frontier = new ArrayList<Node>();
     static Node nodeBeingChecked;
     static ArrayList<Node> explored = new ArrayList<Node>();
@@ -27,8 +27,7 @@ public class bfs {
                 // if child.STATE is not in explored or frontier then
                 if ((!explored.contains(child))&&(!frontier.contains(child))){
                     if (problem.isGoal(child, goal)){
-                        // to do: make calculateSolution global
-                        calculateSolution();
+                        Problem.calculateSolution(nodeBeingChecked, explored);
                     }
                 }
             }
