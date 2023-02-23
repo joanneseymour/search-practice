@@ -21,6 +21,8 @@ public class bfs {
             System.out.println("Frontier size is " + frontier.size());
             nodeBeingChecked = frontier.remove(0);
             explored.add(nodeBeingChecked);
+
+            Node.displayNodeList("explored");
             
             // for each action in problem.ACTIONS(node.STATE) do
             // actions = the set of actions applicable from state s

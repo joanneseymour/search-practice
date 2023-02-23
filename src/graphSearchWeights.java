@@ -55,7 +55,7 @@ public class graphSearchWeights {
 
 		// check all parentsToCheck of nodeBeingChecked
 		for (int i = 0; i < parentsToCheck.size(); i++) {
-			displayNodeList(parentsToCheck);
+			Node.displayNodeList("parentsToCheck");
 			thisParent = parentsToCheck.get(i);
 			theseEdges = thisParent.getEdges();
 			edgesToSort.clear();
@@ -99,7 +99,7 @@ public class graphSearchWeights {
 		bestEdge = bestEdges.get(0);
 		bestParent = bestEdge.start;
 		solution.add(0, bestParent);
-		displayNodeList(solution);
+		Node.displayNodeList("solution");
 		nodeBeingChecked = bestParent;
 		Problem.calculateSolution(nodeBeingChecked, explored);
 	} // getBestParent
@@ -117,28 +117,6 @@ public class graphSearchWeights {
 		}
 		System.out.println("");
 	}
-
-	// public static void displayNodeList(ArrayList<Node> set) {
-	// 	if (set == frontier) {
-	// 		setName = "Frontier";
-	// 	} else if (set == explored) {
-	// 		setName = "Explored";
-	// 	} else if (set == solution) {
-	// 		setName = "Solution";
-	// 	} else if (set == parentsToCheck) {
-	// 		setName = "ParentsToCheck";
-	// 	}
-	// 	System.out.print(setName + ": ");
-	// 	if (set.size() > 0) {
-	// 		for (int i = 0; i < set.size(); i++) {
-	// 			System.out.print(i + ". " + set.get(i).place + " ");
-	// 		}
-	// 	} else {
-	// 		System.out.print("empty");
-	// 	}
-	// 	System.out.println("");
-	// 	setName = "";
-	// }
 
 	public static String getEdgeListName(ArrayList<Edge> edgeList) {
 		String listName = "";

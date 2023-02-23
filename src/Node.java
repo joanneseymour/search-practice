@@ -7,8 +7,14 @@ public class Node{
 	ArrayList<Edge> edges;
 	String place;
 	int weight;
-	static ArrayList<Node> set;
-	
+
+	// for displayNodeList
+	static ArrayList<Node> set = new ArrayList<Node>();
+	static ArrayList<Node> frontier;
+	static ArrayList<Node> explored;
+	static ArrayList<Node> solution;
+	static ArrayList<Node> parentsToCheck;
+
 	public Node(String place){
 		this.place = place;
 		this.children = new ArrayList<Node>();
@@ -33,20 +39,18 @@ public class Node{
 		return node.edges;
 	}
 
-	public static void displayNodeList(String setName){
-		if (setName == "frontier"){
+
+	public static void displayNodeList(String setName) {
+		System.out.println("Setname is " + setName);
+		if (setName == "frontier") {
 			set = frontier;
-		}
-	}
-	public static void displayNodeList(ArrayList<Node> set) {
-		if (set == frontier) {
-			setName = "Frontier";
-		} else if (set == explored) {
-			setName = "Explored";
-		} else if (set == solution) {
-			setName = "Solution";
-		} else if (set == parentsToCheck) {
-			setName = "ParentsToCheck";
+		} else if (setName == "explored") {
+			set = explored;
+			System.out.println(setName + " size is " + set.size());
+		} else if (setName == "solution") {
+			set = solution;
+		} else if (setName == "parentsToCheck") {
+			set = parentsToCheck;
 		}
 		System.out.print(setName + ": ");
 		if (set.size() > 0) {
