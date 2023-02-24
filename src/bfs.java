@@ -14,26 +14,43 @@ public class bfs {
         // if problem.GOAL-TEST(node.STATE) then return SOLUTION(node)
         if (problem.isGoal(nodeBeingChecked,goal)){
             System.out.println("Goal reached! Solution:");
-        } else {
-            System.out.println("Goal not reached yet");
-        }
+        } 
         if (frontier.size()>0) {
-            System.out.println("Frontier size is " + frontier.size());
+            
+            System.out.print("Frontier: ");
+            Node.displayNodeList(frontier);
+            System.out.print("Explored: ");
+            Node.displayNodeList(explored);
+
             nodeBeingChecked = frontier.remove(0);
             explored.add(nodeBeingChecked);
 
-            Node.displayNodeList("explored");
+            System.out.print("Frontier: ");
+            Node.displayNodeList(frontier);
+            System.out.print("Explored: ");
+            Node.displayNodeList(explored);
+
+            System.out.println(nodeBeingChecked.place + " has " + Node.getChildren(nodeBeingChecked).size() + " children");
             
             // for each action in problem.ACTIONS(node.STATE) do
             // actions = the set of actions applicable from state s
             for (int i = 0; i < nodeBeingChecked.children.size(); i++){
-                child = nodeBeingChecked.children.get(i);
+                System.out.println();
+
                 // if child.STATE is not in explored or frontier then
                 if ((!explored.contains(child))&&(!frontier.contains(child))){
+                    System.out.println(nodeBeingChecked.place + " is not in frontier or explored");
                     if (problem.isGoal(child, goal)){
+                        System.out.println("Goal found!");
                         Problem.calculateSolution(nodeBeingChecked, explored);
                     }
+                    System.out.println("Goal not found, adding child " + child.place + "to frontier");
                     frontier.add(frontier.size(), child);
+
+                    System.out.print("Frontier: ");
+                    Node.displayNodeList(frontier);
+                    System.out.print("Explored: ");
+                    Node.displayNodeList(explored);
                 }
             }
 

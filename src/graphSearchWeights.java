@@ -55,7 +55,7 @@ public class graphSearchWeights {
 
 		// check all parentsToCheck of nodeBeingChecked
 		for (int i = 0; i < parentsToCheck.size(); i++) {
-			Node.displayNodeList("parentsToCheck");
+			Node.displayNodeList(parentsToCheck);
 			thisParent = parentsToCheck.get(i);
 			theseEdges = thisParent.getEdges();
 			edgesToSort.clear();
@@ -99,7 +99,7 @@ public class graphSearchWeights {
 		bestEdge = bestEdges.get(0);
 		bestParent = bestEdge.start;
 		solution.add(0, bestParent);
-		Node.displayNodeList("solution");
+		Node.displayNodeList(solution);
 		nodeBeingChecked = bestParent;
 		Problem.calculateSolution(nodeBeingChecked, explored);
 	} // getBestParent
