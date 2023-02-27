@@ -50,6 +50,7 @@ public class graphSearch {
 		setName = "";
 	}
 
+	
 	public static void expandToFrontier(Node nodeBeingChecked, int numberOfChildren) {
 		// expand chosen node, add resulting children to frontier only if not in
 		// frontier or explored set

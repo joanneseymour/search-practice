@@ -56,6 +56,20 @@ public class Node{
 		setName = "";
 	}
 
+	public static void expandToFrontier(Node nodeBeingChecked, int numberOfChildren) {
+		// expand chosen node, add resulting children to frontier only if not in
+		// frontier or explored set
+		for (int i = 0; i < numberOfChildren; i++) {
+			if (!frontier.contains(nodeBeingChecked.children.get(i))
+					&& !explored.contains(nodeBeingChecked.children.get(i))) {
+				System.out.println("Adding " + nodeBeingChecked.place + "'s child "
+						+ nodeBeingChecked.children.get(i).place + " to the frontier");
+				frontier.add(nodeBeingChecked.children.get(i));
+			}
+		}
+		displayNodeList(frontier);
+	}
+
 
     }
 
