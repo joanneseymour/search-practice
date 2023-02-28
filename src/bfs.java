@@ -9,6 +9,7 @@ public class bfs {
     static Node child;
     static ArrayList<Node> children;
     static BusRoutes busRoutes = new BusRoutes();
+	static ArrayList<Node> solution = new ArrayList<Node>();
 
 
     public static void main(String[] args) {
@@ -54,7 +55,7 @@ public class bfs {
                     if (problem.isGoal(child, goal)){
                         
                             System.out.println("Goal found!");
-                        Problem.calculateSolution(child, explored);
+                        calculateSolution(child, explored);
                         break;
                     }
                         System.out.println("Adding " + child.place + " to frontier. " );
@@ -74,4 +75,36 @@ public class bfs {
 
         } 
     }
+
+    public static ArrayList<Node> calculateSolution(Node nodeBeingChecked, ArrayList<Node> explored) {
+        System.out.println("\nIn calculate solution. Adding goal "  + goal.place +  " to solution \n");
+		solution.add(goal);
+       Node.displayNodeList(solution);
+		if (nodeBeingChecked != Problem.initialState) {
+			for (int j = 0; j < explored.size(); j++) {
+				// for all parents of nodeBeingChecked:
+				for (int i = 0; i < nodeBeingChecked.parents.size(); i++) {
+					// if the explored set contains one of the parents,
+					if (explored.contains(nodeBeingChecked.parents.get(i))) {
+						System.out
+								.println(nodeBeingChecked.place + "'s parent, " + nodeBeingChecked.parents.get(i).place
+										+ ", is in the explored set. Adding to solution");
+						solution.add(0, nodeBeingChecked.parents.get(i));
+
+						nodeBeingChecked = solution.get(0);
+                        System.out.println("nodeBeingChecked is now " + nodeBeingChecked.place);
+						break;
+						// add it to the solution list at the beginning.
+					} // if parent is in explored set
+				} // for all parents of nodeBeingChecked
+			}
+
+		} // if nodeBeingChecked is not home
+		System.out.print("Solution is ");
+		for (int i = 0; i < solution.size(); i++) {
+			System.out.print(i + ". " + solution.get(i).place + " ");
+		}
+		System.out.println("");
+		return solution;
+	}
 }

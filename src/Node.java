@@ -10,11 +10,13 @@ public class Node{
 
 	// for displayNodeList
 	static String setName;
-	ArrayList<Node> set = new ArrayList<Node>();
-	static ArrayList<Node> frontier;
-	static ArrayList<Node> explored;
-	static ArrayList<Node> solution;
-	static ArrayList<Node> parentsToCheck;
+	ArrayList<Node> set;
+	// how can I change bfs to "whatever class is calling it"? 'this' doesn't work
+	static ArrayList<Node> frontier = bfs.frontier;
+	static ArrayList<Node> explored = bfs.explored;
+	static ArrayList<Node> solution = bfs.solution;
+	static ArrayList<Node> parentsToCheck;// don't care right now because not in bfs
+
 
 	public Node(String place){
 		this.place = place;
@@ -44,7 +46,15 @@ public class Node{
 		return node.children;
 	}
 
-	public static  void displayNodeList(ArrayList<Node> set) {
+	public static void displayNodeList(ArrayList<Node> set) {
+	if (set == frontier){
+		setName = "frontier";
+	} else if (set == explored) {
+		setName = "explored";
+	} else if (set == solution) {
+		setName = "solution";
+	}
+	System.out.print(setName + ": ");
 		if (set.size() > 0) {
 			for (int i = 0; i < set.size(); i++) {
 				System.out.print(i + ". " + set.get(i).place + " ");
@@ -53,7 +63,7 @@ public class Node{
 			System.out.print("empty");
 		}
 		System.out.println("");
-		setName = "";
+		//setName = "";
 	}
 
 	public static void expandToFrontier(Node nodeBeingChecked, int numberOfChildren) {
