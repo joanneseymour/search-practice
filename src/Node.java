@@ -8,8 +8,6 @@ public class Node {
 	ArrayList<Edge> edges;
 	String place;
 	int weight;
-	static ArrayList<Node> frontier;
-	static ArrayList<Node> explored;
 
 	public Node(String place) {
 		this.place = place;
