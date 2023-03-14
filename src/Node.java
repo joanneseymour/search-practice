@@ -33,8 +33,8 @@ public class Node {
 		return node.edges;
 	}
 
-	public static ArrayList<Node> getChildren(Node node) {
-		return node.children;
-	}
+	// public static ArrayList<Node> getChildren(Node node) {
+	// 	return node.children;
+	// }
 
 }

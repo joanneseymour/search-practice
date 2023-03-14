@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class Problem {
 	Node currentState;
-	Boolean isGoal;
+	//Boolean isGoal;
 	Integer pathCost; // haven't used this yet??
 	static Node initialState = BusRoutes.home;
 	static Node goal = BusRoutes.work;
