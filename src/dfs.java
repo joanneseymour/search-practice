@@ -7,7 +7,7 @@ public class dfs {
     static ArrayList<TNode> explored = new ArrayList<TNode>();
     static ArrayList<TNode> children = new ArrayList<TNode>(); // holds adjacent nodes
     // node ← a node with STATE = problem.INITIAL-STATE
-    static TNode tNodeBeingChecked = Tree.root;
+    static TNode tNodeBeingChecked = busRoutesTree.root;
     static TNode child;
     static TNode tGoal;
 
