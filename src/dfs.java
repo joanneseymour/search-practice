@@ -5,11 +5,15 @@ public class dfs {
 
     static Stack<TNode> frontier = new Stack<TNode>();
     static ArrayList<TNode> explored = new ArrayList<TNode>();
-    static ArrayList<TNode> children = new ArrayList<TNode>(); // holds adjacent nodes
-    // node ← a node with STATE = problem.INITIAL-STATE
+    static Stack<TNode> children = new Stack<TNode>(); // holds adjacent nodes
+    // node: a node with STATE = problem.INITIAL-STATE:
+    static busRoutesTree busRoutesTree = new busRoutesTree();
+    static BusRoutes busRoutes = new BusRoutes();
     static TNode tNodeBeingChecked = busRoutesTree.root;
     static TNode child;
     static TNode tGoal;
+
+    static ArrayList<TNode> set;
 
 
     public static Boolean isGoal(TNode tNodeBeingChecked, TNode tGoal) {
@@ -35,43 +39,50 @@ public class dfs {
         }
         // explored.push(node)
         explored.add(tNodeBeingChecked);
-        // children = node.children
+
+        System.out.print("Explored: ");
+        for (int i = 0; i < explored.size(); i++){
+            System.out.print(i + " " + explored.get(i).place + ". ");
+        }        
+        System.out.println("");
+
+        
         children = TNode.getChildren(tNodeBeingChecked);
-        // for all children
-        for (int i = 0; i < children.size(); i++){
-            child = children.get(i);
+
+        
+        // for all children (in LCRS implementation, would that be for child and all the child's siblings?)
+
             // if child is not in explored
             if (!explored.contains(child)){
                 // frontier.push(child)
                 frontier.push(child);
             }
-        }
+        
         // while frontier is not empty do
-        while (frontier.size() > 0){
-            // node = frontier.pop()
-            tNodeBeingChecked = frontier.pop();
+
             // if node is not in explored set then
-            if (!explored.contains(tNodeBeingChecked)){
 
                 // starts getting all recursive here:
 
                 // add node to explored
-                explored.add(tNodeBeingChecked);
+
                 // children = node.children
-                children = TNode.getChildren(tNodeBeingChecked);
+
                 // for all children
-                for (int i = 0; i < children.size(); i++){
-                    child = children.get(i);
+
                     // if child is not in explored
-                    if (!explored.contains(child)){
+
                         // frontier.push(child)
-                        frontier.push(child);
+
                         // MY-DFS(problem)
                     }
-                }
-            }
+                
+            
+        
         }
-        }
+        
 
-       
-    }
+        
+
+    
+    
