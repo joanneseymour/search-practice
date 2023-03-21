@@ -46,8 +46,8 @@ public class dfs {
         }        
         System.out.println("");
 
-        
-        children = TNode.getChildren(tNodeBeingChecked);
+        System.out.println("Child of " + tNodeBeingChecked.place + " is " + TNode.getChild(tNodeBeingChecked).place);
+        //children = TNode.getChildren(tNodeBeingChecked);
 
         
         // for all children (in LCRS implementation, would that be for child and all the child's siblings?)
@@ -58,6 +58,7 @@ public class dfs {
                 frontier.push(child);
             }
         
+            
         // while frontier is not empty do
 
             // if node is not in explored set then
