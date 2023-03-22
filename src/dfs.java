@@ -12,6 +12,7 @@ public class dfs {
     static TNode tNodeBeingChecked = busRoutesTree.root;
     static TNode child;
     static TNode tGoal;
+    
 
     static ArrayList<TNode> set;
 
@@ -47,8 +48,13 @@ public class dfs {
         System.out.println("");
 
         System.out.println("Child of " + tNodeBeingChecked.place + " is " + TNode.getChild(tNodeBeingChecked).place);
-        //children = TNode.getChildren(tNodeBeingChecked);
+        children = TNode.getChildren(tNodeBeingChecked);
 
+        System.out.print("Children: ");
+        for (int i = 0; i < children.size(); i++){
+            System.out.print(i + " " + children.get(i).place + children.get(i).id + ". ");
+        }        
+        System.out.println("");
         
         // for all children (in LCRS implementation, would that be for child and all the child's siblings?)
 
