@@ -7,7 +7,7 @@ public class TNode {
     int id;
     int weight;
     TNode parent;
-    static Stack<TNode> children; // children will go into frontier (a stack) so let's keep them the same data structure
+    static Stack<TNode> adjNodes; // adjNodes will go into frontier (a stack) so let's keep them the same data structure
     TNode child;
     TNode rSib;
     TNode tNodeBeingChecked;
@@ -18,7 +18,7 @@ public class TNode {
         this.place = place;
         child = null;
         rSib = null;
-        TNode.children = new Stack<TNode>();
+        TNode.adjNodes = new Stack<TNode>();
     }
 
     public static TNode getChild(TNode tNodeBeingChecked){
@@ -29,20 +29,18 @@ public class TNode {
         return tNodeBeingChecked.rSib;
     }
 
-    public static Stack<TNode> getChildren(TNode tNodeBeingChecked){
-
-        //System.out.println("In getChildren");
-        //System.out.println("Checking " + tNodeBeingChecked.place);
-
-        //System.out.println("Its right sibling is " + rSib.place + rSib.id);
-        while (tNodeBeingChecked.child != null){
-            //System.out.println("Child is not null, It's " + tNodeBeingChecked.child.place);
-            children.push(tNodeBeingChecked.child);
-            //System.out.println("Children size is " + children.size());
-            tNodeBeingChecked.child = tNodeBeingChecked.child.child;           
+    public static Stack<TNode> getAdjNodes(TNode tNodeBeingChecked){
+        TNode adjNode;
+        if (tNodeBeingChecked.child != null){
+            adjNode = tNodeBeingChecked.child;
+        } else {
+            adjNode = tNodeBeingChecked.rSib;
         }
-        //System.out.println("Child of " + tNodeBeingChecked.place+ " is null");
-        return children;
+        while (adjNode != null){
+            adjNodes.push(adjNode);
+            adjNode = adjNode.rSib;           
+        }
+        return adjNodes;
     }
 
     

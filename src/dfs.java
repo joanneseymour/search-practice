@@ -3,19 +3,20 @@ import java.util.Stack;
 
 public class dfs {
 
-    static Stack<TNode> frontier = new Stack<TNode>();
+    static Stack<TNode> frontier;
     static ArrayList<TNode> explored = new ArrayList<TNode>();
-    static Stack<TNode> children = new Stack<TNode>(); // holds adjacent nodes
+    static Stack<TNode> adjNodes = new Stack<TNode>(); // holds adjacent nodes
     // node: a node with STATE = problem.INITIAL-STATE:
     static busRoutesTree busRoutesTree = new busRoutesTree();
     static BusRoutes busRoutes = new BusRoutes();
     static TNode tNodeBeingChecked = busRoutesTree.root;
-    static TNode child;
+    static TNode adjNode;
     static TNode tGoal;
-    
+    //static ArrayList<TNode> set;
 
-    static ArrayList<TNode> set;
-
+    public dfs(){
+        dfs.frontier = new Stack<TNode>();
+    }
 
     public static Boolean isGoal(TNode tNodeBeingChecked, TNode tGoal) {
 		if (tNodeBeingChecked == tGoal) {
@@ -46,40 +47,48 @@ public class dfs {
             System.out.print(i + " " + explored.get(i).place + ". ");
         }        
         System.out.println("");
+        adjNodes = TNode.getAdjNodes(tNodeBeingChecked);
 
-        System.out.println("Child of " + tNodeBeingChecked.place + " is " + TNode.getChild(tNodeBeingChecked).place);
-        children = TNode.getChildren(tNodeBeingChecked);
-
-        System.out.print("Children: ");
-        for (int i = 0; i < children.size(); i++){
-            System.out.print(i + " " + children.get(i).place + children.get(i).id + ". ");
+        System.out.print("AdjNodes: ");
+        for (int i = 0; i < adjNodes.size(); i++){
+            System.out.print(i + " " + adjNodes.get(i).place + adjNodes.get(i).id + ". ");
         }        
         System.out.println("");
         
-        // for all children (in LCRS implementation, would that be for child and all the child's siblings?)
+//  THERE'S NO FRONTIER????
 
-            // if child is not in explored
-            if (!explored.contains(child)){
-                // frontier.push(child)
-                frontier.push(child);
+        // for all adjacent nodes of nodeBeingChecked
+        for (int i = 0; i < adjNodes.size(); i++){
+            // if adjNode is not in explored
+            if (!explored.contains(adjNode)){
+                frontier.push(adjNode);
             }
-        
-            
-        // while frontier is not empty do
+        }
 
+        
+            System.out.print("Frontier: ");
+            for (int i = 0; i < frontier.size(); i++){
+                System.out.print(i + " " + frontier.get(i).place + frontier.get(i).id + ". ");
+            }        
+            System.out.println("");
+
+        // while frontier is not empty do
+            // while (frontier.size() > 0){
+
+            // }
             // if node is not in explored set then
 
                 // starts getting all recursive here:
 
                 // add node to explored
 
-                // children = node.children
+                // adjNodes = node.adjNodes
 
-                // for all children
+                // for all adjNodes
 
-                    // if child is not in explored
+                    // if adjNode is not in explored
 
-                        // frontier.push(child)
+                        // frontier.push(adjNode)
 
                         // MY-DFS(problem)
                     }
