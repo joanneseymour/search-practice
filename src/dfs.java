@@ -20,13 +20,7 @@ public class dfs {
 		}
 	}
 
-    public static void main(String[] args) {
-        // if goalTest(node, goal) then return solution
-        if (isGoal(tNodeBeingChecked, tGoal)){
-            System.out.println("Goal found! Solution: ");
-        }
-        explored.add(tNodeBeingChecked);
-
+    public static void adjsToFrontier(TNode tNodeBeingChecked){
         adjNodes = TNode.getAdjNodes(tNodeBeingChecked);
 
         // for all adjacent nodes of nodeBeingChecked
@@ -37,26 +31,44 @@ public class dfs {
                 frontier.push(adjNode);
             }
         }
+    }
+    public static void main(String[] args) {
+        // if goalTest(node, goal) then return solution
+        if (isGoal(tNodeBeingChecked, tGoal)){
+            System.out.println("Goal found! Solution: ");
+        }
+        explored.add(tNodeBeingChecked);
+        adjsToFrontier(tNodeBeingChecked);
+
         // while frontier is not empty do
             while (frontier.size() > 0){
                 tNodeBeingChecked = frontier.pop();
+                
+            // WHY DOESN'T THIS SHOW UP???
+
+                System.out.println("tNodeBeingChecked: " + tNodeBeingChecked.place + tNodeBeingChecked.id);
                 // if node is not in explored set then
                 if (!explored.contains(tNodeBeingChecked)){
-                // starts getting all recursive here:
                 // add node to explored
                     explored.add(tNodeBeingChecked);
-                // adjNodes = node.adjNodes
-                    adjNodes = TNode.getAdjNodes(tNodeBeingChecked);
-                    // for all adjNodes
-                    for (int i = 0; i < adjNodes.size(); i++){
-                        // if adjNode is not in explored   
-                        // frontier.push(adjNode)
-                        // MY-DFS(problem)
+
+                adjsToFrontier(tNodeBeingChecked);
                     }
+                    for (int f = 0; f < frontier.size(); f++){
+                        System.out.print("Explored: ");
+                        for (int e = 0; e < explored.size(); e++){
+                            
+                            System.out.print(e + " " + explored.get(e).place + ". ");
+                        }
+                        System.out.println("");
+                        System.out.print("Frontier: ");
+                        System.out.print(f + " " + frontier.get(f).place + ". ");
+                    }
+                    System.out.println("");
                 }
             }
         }
-    }
+    
             // 
 
 
