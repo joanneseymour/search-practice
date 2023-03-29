@@ -1,3 +1,5 @@
+// Stops as soon as it reaches a goal, doesn't traverse the entire tree
+
 import java.util.ArrayList;
 import java.util.Stack;
 
@@ -54,8 +56,16 @@ public class dfs {
                 displayExploredFrontier(explored, frontier);
             }
         }
-
     }
+    public static void showSolution(){
+        System.out.print("Solution: ");
+            for (int e = 0; e < explored.size(); e++){
+                System.out.print(explored.get(e).place + "(" + explored.get(e).id + "). ");
+            }
+            System.out.println("\n");     
+     }
+
+    
     public static void main(String[] args) {
         // if goalTest(node, goal) then return solution
         if (isGoal(tNodeBeingChecked)){
@@ -80,7 +90,9 @@ public class dfs {
                     adjsToFrontier(tNodeBeingChecked);
                     // displayExploredFrontier(explored, frontier);
                     if (isGoal(tNodeBeingChecked)){
-                        System.out.println("WHile: Goal found! Solution: ");
+                        System.out.print("Goal found! ");
+                        showSolution();
+                        break;
                     }
                     }
                     System.out.println("");
