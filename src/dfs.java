@@ -8,8 +8,6 @@ public class dfs {
     static Stack<TNode> frontier = new Stack<TNode>();
     static ArrayList<TNode> explored = new ArrayList<TNode>();
     static Stack<TNode> adjNodes = new Stack<TNode>(); // holds adjacent nodes
-    static busRoutesTree busRoutesTree = new busRoutesTree();
-    static BusRoutes busRoutes = new BusRoutes();
     static TNode tNodeBeingChecked = busRoutesTree.root;
     static TNode adjNode;
 
