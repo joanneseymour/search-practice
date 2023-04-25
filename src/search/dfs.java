@@ -1,3 +1,4 @@
+package search;
 // Stops as soon as it reaches a goal, doesn't traverse the entire tree
 
 import java.util.ArrayList;

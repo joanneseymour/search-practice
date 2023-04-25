@@ -1,3 +1,6 @@
+package search;
+// VALUE OF level GETS LOlimitST BETWEEN DLS METHOD AND expandAdjToFrontier METHOD
+
 import java.util.ArrayList;
 import java.util.Stack;
 
@@ -7,6 +10,7 @@ public class TNode {
     String place;
     int id;
     int weight;
+    static int level;
     //int depth;
     TNode parent;
     //static Stack<TNode> adjNodes; // adjNodes will go into frontier (a stack) so let's keep them the same data structure
@@ -17,18 +21,20 @@ public class TNode {
     // moved over from dls.java
     static busRoutesTree busRoutesTree = new busRoutesTree();
     static Stack<TNode> frontier = new Stack<TNode>();
+    
     static Stack<TNode> adjNodes;
     static TNode adjNode;
     static ArrayList<TNode> explored = new ArrayList<TNode>();
     static TNode root = busRoutesTree.root;
-    static int limit;
+
     int depth;
     static TNode tNodeBeingChecked;
 
     public TNode(int id, String place, TNode child, TNode rSib, int depth){
-        this.id = id;
+
         this.place = place;
         this.depth = depth;
+        this.id = id;
         child = null;
         rSib = null;
         TNode.adjNodes = new Stack<TNode>();
@@ -111,8 +117,8 @@ public class TNode {
         System.out.println("\n");
     }
 
-    public static void expandAdjToFrontier(TNode node) {
-        System.out.println("\nexpandAdjToFrontier:");
+    public static void expandAdjToFrontier(TNode node, int level, int limit) {
+        System.out.println("\nIn expandAdjToFrontier. level: " + level + ", limit: " + limit);
         System.out.println("Currently checking " + node.place + node.id);
         adjNodes = TNode.getAdjNodes(node);
         System.out.println(node.place + " has " + adjNodes.size() + " adjNodes");
@@ -125,15 +131,16 @@ public class TNode {
             }
         }
         displayExploredFrontier(explored, frontier);
-        checkAdjInFrontier();
+        checkAdjInFrontier(level, limit);
     }
 
     // check if they are a goal. return solution. If not, add each one to explored
     // and add its childen to frontier.
-    public static void checkAdjInFrontier() {
-        System.out.println("checkAdjInFrontier:");
+    public static void checkAdjInFrontier(int level, int limit) {
+        System.out.println("checkAdjInFrontier. Level: " + level + ", limit: " + limit);
         System.out.println("Checking " + adjNode.place + adjNode.id + ", depth " + adjNode.depth);
-        if (adjNode.depth <= limit) {
+        if (adjNode.depth <= level) {
+            System.out.println(adjNode.place + adjNode.id + " depth: " + adjNode.depth + " is <= level " + level);
             if (!explored.contains(adjNode)) {
                 if (isGoal(adjNode)) {
                     showSolution(adjNode, explored);
@@ -141,35 +148,43 @@ public class TNode {
                     explored.add(adjNode);
                     System.out.println(
                             "adjNode " + adjNode.place + adjNode.id + " is not the goal. Going to expandAdjToFrontier");
-                    expandAdjToFrontier(adjNode);
+                    expandAdjToFrontier(adjNode, level, limit);
                 } // if isGoal
             } else {
                 System.out.println("Explored already contains " + adjNode.place + adjNode.id);
             } // if !explored.contains
         } else {
-            System.out.println(adjNode.place + adjNode.id + "is beyond the searchable limit");
+            //System.out.println("Beyond level");
+            System.out.println(adjNode.place + adjNode.id + "'s depth, " + adjNode.depth + ", is beyond the current search level of " + level);
         }
     }
 
     // dls method used to be the main method of dls.java:
-    public static void dls(TNode root, int limit) {
-        frontier.push(busRoutesTree.root);
+    public static Boolean dls(TNode tNode, int level, int limit) {
+        System.out.println("\nIn dls. Level: " + level + ", limit: " + limit);
+        // frontier.push(busRoutesTree.root);
         displayExploredFrontier(explored, frontier);
         tNodeBeingChecked = frontier.pop();
+        System.out.println("Checking " + tNodeBeingChecked.place + tNodeBeingChecked.id);
 
         if (!isGoal(tNodeBeingChecked)) {
             if (!explored.contains(tNodeBeingChecked)) {
                 explored.add(tNodeBeingChecked);
                 System.out.println("TNodeBeingChecked is " + tNodeBeingChecked.place + tNodeBeingChecked.id
                         + ". Checking its adjNodes");
-                expandAdjToFrontier(tNodeBeingChecked);
+                expandAdjToFrontier(tNodeBeingChecked, level, limit);
             } else {
                 System.out.println("Explored already contains " + tNodeBeingChecked.place + tNodeBeingChecked.id);
             }
         } else {
             showSolution(tNodeBeingChecked, explored);
+            return true;
         }
+        System.out.println("dls. Not goal, exiting dls and going back to ids");
+        return false;
 
-    } // main
+    } // dls
+
+
     
 }

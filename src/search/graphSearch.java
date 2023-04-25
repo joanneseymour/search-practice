@@ -1,3 +1,4 @@
+package search;
 import java.util.ArrayList;
 
 // This does a graphSearch, as in it gets from the beginning point (home) to the end (work).

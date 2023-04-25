@@ -1,3 +1,4 @@
+package search;
 import java.util.ArrayList;
 
 public class Problem {
