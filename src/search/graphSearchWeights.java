@@ -30,7 +30,6 @@ public class graphSearchWeights {
 	static Problem problem = new Problem(currentState, 0, Problem.goal);
 	static Node bestParent;
 	static int weight;
-	static Object objectToDisplay = new Object();
 
 	public static void reachgoal(Problem problem) {
 		frontier.add(Problem.initialState);

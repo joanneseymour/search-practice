@@ -26,6 +26,7 @@ public  int getWeight(Edge edge) {
 }
 
 
+
 @Override
 	public int compareTo(Edge e){
 		if (this.weight > e.weight) {  // you're comparing the Edges by the 'weight'

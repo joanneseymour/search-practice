@@ -1,6 +1,4 @@
 package search;
-// VALUE OF level GETS LOlimitST BETWEEN DLS METHOD AND expandAdjToFrontier METHOD
-
 import java.util.ArrayList;
 import java.util.Stack;
 
