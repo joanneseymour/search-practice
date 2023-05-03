@@ -2,83 +2,102 @@ package search;
 import java.util.ArrayList;
 
 public class bfs {
-    static Node goal = Problem.goal;
-    static Problem problem = new Problem(Problem.initialState, 0, Problem.goal);
-    static ArrayList<Node> frontier = new ArrayList<Node>();
-    static Node nodeBeingChecked = Problem.initialState;
-    static ArrayList<Node> explored = new ArrayList<Node>();
-    static Node child;
-    static ArrayList<Node> children;
-    static BusRoutes busRoutes = new BusRoutes();
-    static ArrayList<Node> solution = new ArrayList<Node>();
-    static ArrayList<Node> set;
+    static gNode goal = GSearch.goal;
+    static ArrayList<GNode> fifoFrontier = new ArrayList<GNode>();
+    static ArrayList<GNode> explored = new ArrayList<GNode>();
+    static GNode gNodeBeingChecked = Problem.initialState;
+    static GNode child;
+    static ArrayList<GNode> children;
+    static int numberOfChildren;
+    static BusRoutes busRoutesGraph = new BusRoutesGraph();
+    static ArrayList<GNode> solution = new ArrayList<GNode>();
+
+
+    public static void expandToFrontier(gNode nodeBeingChecked, int numberOfChildren) {
+		for (int i = 0; i < numberOfChildren; i++) {
+			if (!fifoFrontier.contains(nodeBeingChecked.children.get(i))
+					&& !explored.contains(nodeBeingChecked.children.get(i))) {
+				fifoFrontier.add(nodeBeingChecked.children.get(i));
+			}
+		}	
+        displayFrontierExplored();	
+	}
+
 
     public static void main(String[] args) {
-        frontier.add(nodeBeingChecked);
-        // if problem.GOAL-TEST(node.STATE) then return SOLUTION(node)
-        if (problem.isGoal(nodeBeingChecked, goal)) {
+        fifoFrontier.add(gNodeBeingChecked);
+        // if problem.GOAL-TEST(GNode.STATE) then return SOLUTION(GNode)
+        if (GSearch.isGoal(gNodeBeingChecked, goal)) {
             System.out.println("Goal reached! Solution:");
         }
-        while ((frontier.size() > 0) && (!solution.contains(goal))) {
-            nodeBeingChecked = frontier.get(0);
-            children = nodeBeingChecked.children;
-            System.out.println("In while loop. nodeBeingChecked is " + nodeBeingChecked.place);
+
+
+            gNodeBeingChecked = fifoFrontier.get(0);
+            children = gNodeBeingChecked.children;
+            numberOfChildren = childen.size();
+
+            while ((fifoFrontier.size() > 0) && (!solution.contains(goal))) {
+            System.out.println("In while loop. gNodeBeingChecked is " + gNodeBeingChecked.place);
             System.out.println("");
-            System.out.println("Removing " + frontier.get(0).place + " from frontier and adding it to explored");
-            nodeBeingChecked = frontier.remove(0);
-            explored.add(nodeBeingChecked);
-            displayNodeList("frontier");
+            System.out.println("Removing " + fifoFrontier.get(0).place + " from fifoFrontier and adding it to explored");
+            gNodeBeingChecked = fifoFrontier.remove(0);
+            explored.add(gNodeBeingChecked);
+            displayNodeList("fifoFrontier");
             displayNodeList("explored");
-            System.out.println(nodeBeingChecked.place + " has " + children.size()
-                    + " children. Adding all its children to frontier.");
-            // for each action in problem.ACTIONS(node.STATE) do
+            System.out.println(gNodeBeingChecked.place + " has " + children.size()
+                    + " children. Adding all its children to fifoFrontier.");
+
+// put expandTo Frontier here??
+
+
+            // for each action in problem.ACTIONS(GNode.STATE) do
             // actions = the set of actions applicable from state s
             for (int i = 0; i < children.size(); i++) {
                 child = children.get(i);
-                System.out.println("Child " + i + " of " + nodeBeingChecked.place + ": " + child.place);
+                System.out.println("Child " + i + " of " + gNodeBeingChecked.place + ": " + child.place);
 
-                // if child.STATE is not in explored or frontier then
-                if ((!explored.contains(child)) && (!frontier.contains(child))) {
-                    System.out.println(child.place + " is not in frontier or explored");
+                // if child.STATE is not in explored or fifoFrontier then
+                if ((!explored.contains(child)) && (!fifoFrontier.contains(child))) {
+                    System.out.println(child.place + " is not in fifoFrontier or explored");
                     if (problem.isGoal(child, goal)) {
                         System.out.println("Goal found!");
                         calculateSolution(child, explored);
                         break;
                     }
-                    System.out.println("Adding " + child.place + " to frontier. ");
-                    frontier.add(frontier.size(), child);
-                    displayNodeList("frontier");
+                    System.out.println("Adding " + child.place + " to fifoFrontier. ");
+                    fifoFrontier.add(fifoFrontier.size(), child);
+                    displayNodeList("fifoFrontier");
                     displayNodeList("explored");
                 } else {
-                    System.out.println("Ignoring " + child.place + " as it's already in frontier / explored\n");
+                    System.out.println("Ignoring " + child.place + " as it's already in fifoFrontier / explored\n");
                 }
             }
         }
     }
 
-    public static ArrayList<Node> calculateSolution(Node nodeBeingChecked, ArrayList<Node> explored) {
+    public static ArrayList<GNode> calculateSolution(GNode gNodeBeingChecked, ArrayList<GNode> explored) {
         System.out.println("\nIn calculate solution. Adding goal " + goal.place + " to solution \n");
         solution.add(goal);
         getNodeList("solution");
-        if (nodeBeingChecked != Problem.initialState) {
+        if (gNodeBeingChecked != Problem.initialState) {
             for (int j = 0; j < explored.size(); j++) {
-                // for all parents of nodeBeingChecked:
-                for (int i = 0; i < nodeBeingChecked.parents.size(); i++) {
+                // for all parents of gNodeBeingChecked:
+                for (int i = 0; i < gNodeBeingChecked.parents.size(); i++) {
                     // if the explored set contains one of the parents,
-                    if (explored.contains(nodeBeingChecked.parents.get(i))) {
+                    if (explored.contains(gNodeBeingChecked.parents.get(i))) {
                         System.out
-                                .println(nodeBeingChecked.place + "'s parent, " + nodeBeingChecked.parents.get(i).place
+                                .println(gNodeBeingChecked.place + "'s parent, " + gNodeBeingChecked.parents.get(i).place
                                         + ", is in the explored set. Adding to solution");
-                        solution.add(0, nodeBeingChecked.parents.get(i));
-                        nodeBeingChecked = solution.get(0);
-                        System.out.println("nodeBeingChecked is now " + nodeBeingChecked.place);
+                        solution.add(0, gNodeBeingChecked.parents.get(i));
+                        gNodeBeingChecked = solution.get(0);
+                        System.out.println("gNodeBeingChecked is now " + gNodeBeingChecked.place);
                         break;
                         // add it to the solution list at the beginning.
                     } // if parent is in explored set
-                } // for all parents of nodeBeingChecked
+                } // for all parents of gNodeBeingChecked
             }
 
-        } // if nodeBeingChecked is not home
+        } // if gNodeBeingChecked is not home
         System.out.print("Solution is ");
         for (int i = 0; i < solution.size(); i++) {
             System.out.print(i + ". " + solution.get(i).place + " ");
@@ -87,9 +106,9 @@ public class bfs {
         return solution;
     }
 
-    public static ArrayList<Node> getNodeList(String listName) {
-        if (listName == "frontier") {
-            set = frontier;
+    public static ArrayList<GNode> getNodeList(String listName) {
+        if (listName == "fifoFrontier") {
+            set = fifoFrontier;
         } else if (listName == "explored") {
             set = explored;
         } else if (listName == "solution") {
